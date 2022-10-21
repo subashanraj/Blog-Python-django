@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    
+<div id="con">
+	<h1>Blog</h1>
+	<div class="container text-center">
+
+		<div class="row">
+			{% for post in object_list %}
+			<div class='col'>
+				<div class="card text-center" style="width : 400px;">
+					<div class="card-header">
+						<h2><a href="{% url 'article-detail' post.pk %}">{{post.title}} </a></h2>
+					</div>
+
+					<div class="card-body">
+
+						<p class="card-text">{{post.body|slice:"150"|safe}}</p>
+						{% if user.is_authenticated%}
+						{% if user.id == post.author.id %}
+						<a href="{% url 'update_post' post.pk %}" class='btn btn-primary'>Edit</a>
+						<a href="{% url 'delete_post' post.pk %}" class='btn btn-warning'>Delete</a>
+						{% endif %}
+						{% endif %}
+					</div>
+					<div class="card-footer text-muted">
+						By: {{post.author.first_name}} - {{post.post_date}}
+					</div>
+				</div>
+
+
+				<br />
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
