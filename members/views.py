@@ -61,4 +61,4 @@ class UserEditView(generic.UpdateView):
 	success_url = reverse_lazy('home')
 
 	def get_object(self):
-		return self.request.n 
+		return self.request.user
